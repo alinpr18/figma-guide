@@ -1,17 +1,110 @@
-<h2>Shape Creator</h2>
-<p>Count: <input id="count" type="number" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/thomas-lowry/figma-plugin-ds/dist/figma-plugin-ds.css"
+/>
+
+<style>
+  body {
+    padding: 2em;
+  }
+  div {
+    margin: 1em;
+  }
+  input {
+    display: block;
+  }
+</style>
+
+<h1>Hello World</h1>
+
+<div>
+  <label for="username">Username</label>
+  <input
+    class="input__field"
+    type="text"
+    name="username"
+    id="username"
+    value="aliparedes"
+  />
+
+  <label for="name">Name</label>
+  <input
+    class="input__field"
+    type="text"
+    name="name"
+    id="name"
+    value="Ali Paredes"
+  />
+
+  <label for="description">Description</label>
+  <input
+    class="input__field"
+    type="textarea"
+    rows="2"
+    id="description"
+    value="Web Developer"
+  />
+</div>
+
+<div class="switch">
+  <input type="checkbox" class="switch__toggle" id="dark-mode-on" />
+  <label class="switch__label" for="dark-mode-on">Dark Mode</label>
+</div>
+
+<div class="radio">
+  <input
+    type="radio"
+    class="radio__button"
+    id="radiobutton1"
+    name="variantGroup"
+    value="1"
+  />
+  <label for="radiobutton1" class="radio__label">No Image</label>
+
+  <input
+    type="radio"
+    class="radio__button"
+    id="radiobutton2"
+    name="variantGroup"
+    value="2"
+  />
+  <label for="radiobutton2" class="radio__label">Single Image</label>
+
+  <input
+    type="radio"
+    class="radio__button"
+    id="radiobutton3"
+    name="variantGroup"
+    value="3"
+  />
+  <label for="radiobutton3" class="radio__label">Carousel</label>
+</div>
+
+<div>
+  <button class="button button--primary" id="submit-post">Submit</button>
+</div>
+
 <script>
+  document.getElementById("submit-post").onclick = () => {
+    const name = document.getElementById("name").value;
+    const username = document.getElementById("username").value;
+    const description = document.getElementById("description").value;
+    const darkModeState = document.getElementById("dark-mode-on").checked;
+    const imageVariant = document.querySelector(
+      'input[name="variantGroup"]:checked'
+    ).value;
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-  parent.postMessage({ pluginMessage: { type: 'create-shapes', count } }, '*')
-}
-
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
-
+    parent.postMessage(
+      {
+        pluginMessage: {
+          name,
+          username,
+          description,
+          darkModeState,
+          imageVariant,
+        },
+      },
+      "*"
+    );
+  };
 </script>
